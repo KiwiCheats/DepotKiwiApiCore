@@ -7,15 +7,20 @@ using System.Text;
 using DepotKiwiApiCore.Models;
 
 namespace DepotKiwiApiCore.Utils {
-    internal class DepotHelper {
-        internal DepotHelper(string api, string directory) {
+    public class DepotHelper {
+        public DepotHelper(string api, string directory) {
             Api = new Api(api);
             _directory = directory;
         }
 
-        internal Api Api { get; }
+        public DepotHelper(Api api, string directory) {
+            Api = api;
+            _directory = directory;
+        }
 
-        internal IEnumerable<string> GetFiles() {
+        public Api Api { get; }
+
+        public IEnumerable<string> GetFiles() {
             var kiwiDepotFolder = GetKiwiDepotFolder();
             
             foreach (var file in Directory.GetFiles(_directory, "*.*", SearchOption.AllDirectories)) {
@@ -38,7 +43,7 @@ namespace DepotKiwiApiCore.Utils {
             }
         }
 
-        internal bool Create(string id) {
+        public bool Create(string id) {
             try {
                 Directory.CreateDirectory(GetKiwiDepotFolder());
 
@@ -51,7 +56,7 @@ namespace DepotKiwiApiCore.Utils {
             }
         }
 
-        internal Depot Get() {
+        public Depot Get() {
             var path = GetKiwiDepotPath(".depot");
 
             if (!File.Exists(path)) {
@@ -63,7 +68,7 @@ namespace DepotKiwiApiCore.Utils {
             return Api.GetDepot(id);
         }
 
-        internal FileStream GetFile(string name) {
+        public FileStream GetFile(string name) {
             try {
                 return File.OpenRead(Path.Join(_directory, name));
             }
@@ -72,7 +77,7 @@ namespace DepotKiwiApiCore.Utils {
             }
         }
         
-        internal bool SaveFile(string name, byte[] buffer) {
+        public bool SaveFile(string name, byte[] buffer) {
             try {
                 var path = Path.Join(_directory, name);
 
@@ -94,7 +99,7 @@ namespace DepotKiwiApiCore.Utils {
             }
         }
         
-        internal bool DeleteFile(string name) {
+        public bool DeleteFile(string name) {
             try {
                 File.Delete(Path.Join(_directory, name));
 
@@ -105,7 +110,7 @@ namespace DepotKiwiApiCore.Utils {
             }
         }
 
-        internal bool FileMatches(string name, string hash) {
+        public bool FileMatches(string name, string hash) {
             var path = Path.Join(_directory, name);
 
             if (!File.Exists(path))
@@ -140,7 +145,6 @@ namespace DepotKiwiApiCore.Utils {
 
             return builder.ToString();
         }
-
         
         private readonly string _directory;
     }
