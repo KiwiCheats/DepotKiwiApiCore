@@ -9,16 +9,16 @@ using DepotKiwiApiCore.Models;
 namespace DepotKiwiApiCore.Utils {
     public class DepotHelper {
         public DepotHelper(string api, string directory) {
-            Api = new Api(api);
+            Api = new DepotKiwiApi(api);
             _directory = directory;
         }
 
-        public DepotHelper(Api api, string directory) {
+        public DepotHelper(DepotKiwiApi api, string directory) {
             Api = api;
             _directory = directory;
         }
 
-        public Api Api { get; }
+        public DepotKiwiApi Api { get; }
 
         public IEnumerable<string> GetFiles() {
             var kiwiDepotFolder = GetKiwiDepotFolder();

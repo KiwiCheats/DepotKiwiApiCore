@@ -7,8 +7,8 @@ using DepotKiwiApiCore.RequestModels;
 using DepotKiwiApiCore.Utils;
 
 namespace DepotKiwiApiCore {
-    public class Api {
-        public Api(string api) {
+    public class DepotKiwiApi {
+        public DepotKiwiApi(string api) {
             _requestHelper = new RequestHelper(api);
         }
         
